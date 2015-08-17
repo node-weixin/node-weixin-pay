@@ -60,7 +60,7 @@ var pay = {
    * @param certificate         Certificate from Tencent Pay
    * @param cb                  Callback Function
    */
-  request: function (url, data, sendConfig, receiveConfig, certificate, cb) {
+  request: function (certificate, url, data, sendConfig, receiveConfig, cb) {
     var error = {};
 
     //Validate Sending Data
