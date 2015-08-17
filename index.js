@@ -22,26 +22,28 @@ var pay = {
    * @param validate
    * @returns {*}
    */
-  handle: function (cb, json, validate) {
+  handle: function (app, merchant, json, resultValidator, cb) {
     var returnCode = json.return_code;
     var returnMsg = json.return_msg;
     var error = {};
 
     if (returnCode === 'SUCCESS') {
-      var vError = this.validate(json);
+      var vError = this.validate(app, merchant, json);
       if (true !== vError) {
-        return cb(true)
+        return cb(true);
       }
-      if (validate === null) {
+
+      //是否还要验证数据
+      if (resultValidator === null) {
         return cb(false, null, json);
       }
       var resultCode = json.result_code;
       if (resultCode === 'SUCCESS') {
-        if (!v.validate(validate, json, error)) {
+        if (!v.validate(resultValidator, json, error)) {
           cb(true);
           return;
         }
-        var result = v.json.extract(json, validate);
+        var result = v.json.extract(json, resultValidator);
         cb(false, result, json);
       }
     }
@@ -110,7 +112,7 @@ var pay = {
     crypt.update(temp);
     return crypt.digest('hex').toUpperCase();
   },
-  validate: function (data) {
+  validate: function (data, app, merchant) {
     var config = require('./conf/validation');
     var conf = config.auth.header;
     var error = {};
@@ -118,10 +120,10 @@ var pay = {
     if (!v.validate(conf, data, error)) {
       return errors.ERROR;
     }
-    if (data.appid !== auth.appId) {
+    if (data.appid !== app.id) {
       return errors.APP_ID_ERROR;
     }
-    if (data.mch_id !== auth.merchant.id) {
+    if (data.mch_id !== merchant.id) {
       return errors.MERCHANT_ID_ERROR;
     }
     return true;
