@@ -1,0 +1,43 @@
+{
+  "name": "node-weixin-pay",
+  "version": "0.0.1",
+  "description": "Weixin Pay functions for node",
+  "author": {
+    "name": "JSSDKCN",
+    "email": "calidion@gmail.com",
+    "url": "blog.3gcnbeta.com"
+  },
+  "repository": "JSSDKCN/node-weixin-pay",
+  "license": "MIT",
+  "files": [
+    "index.js",
+    "lib"
+  ],
+  "keywords": [
+    "node-weixin-pay",
+    "weixin",
+    "pay"
+  ],
+  "dependencies": {
+    "lodash": "^3.10.1",
+    "node-form-validator": "^0.1.2",
+    "node-weixin-request": "0.0.3",
+    "node-weixin-util": "0.0.2",
+    "node-xml2json": "^1.0.0",
+    "web-errors": "^0.1.5"
+  },
+  "devDependencies": {
+    "grunt-cli": "^0.1.13",
+    "grunt-contrib-jshint": "^0.11.0",
+    "grunt-contrib-nodeunit": "^0.4.1",
+    "grunt-contrib-watch": "^0.6.1",
+    "grunt-mocha-cli": "^1.12.0",
+    "jshint-stylish": "^1.0.1",
+    "load-grunt-tasks": "^3.1.0",
+    "node-weixin-config": "0.0.2",
+    "time-grunt": "^1.1.0"
+  },
+  "scripts": {
+    "test": "grunt"
+  }
+}
