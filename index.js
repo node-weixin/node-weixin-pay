@@ -60,7 +60,7 @@ var pay = {
    * @param certificate         Certificate from Tencent Pay
    * @param cb                  Callback Function
    */
-  request: function (certificate, url, data, sendConfig, receiveConfig, cb) {
+  request: function (config, url, data, sendConfig, receiveConfig, cb) {
     var error = {};
 
     //Validate Sending Data
@@ -70,11 +70,10 @@ var pay = {
     }
 
     var params = _.clone(data);
-    params = this.prepare(params);
-    params.sign = util.sign(params);
+    params = pay.prepare(params, config.app, config.merchant);
+    params.sign = pay.sign(config.merchant, params);
     var xml = util.toXml(params);
-    var pay = this;
-    restful.xmlssl(url, xml, certificate, function (error, json) {
+    restful.xmlssl(url, xml, config.certificate, function (error, json) {
       pay.handle(cb, error, json, receiveConfig);
     });
   },
@@ -146,12 +145,12 @@ var pay = {
     };
     data.paySign = this.sign(merchant, data);
     return data;
-  },
-  callback: require('./lib/callback'),
-  api: require('./lib/api')
+  }
 };
 
 
 module.exports = pay;
 
+pay.callback = require('./lib/callback');
+pay.api = require('./lib/api');
 
