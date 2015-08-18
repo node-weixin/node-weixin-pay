@@ -31,7 +31,7 @@ describe('node-weixin-pay node module', function () {
       id: 'dddo'
     };
     nodeWeixinConfig.merchant.init(merchant);
-    var config = nodeWeixinPay.prepay(id, merchant, app);
+    var config = nodeWeixinPay.prepay(id, app, merchant);
     assert.equal(true, config.appId === app.id);
     assert.equal(true, validator.isNumeric(config.timeStamp));
     assert.equal(true, config.package === 'prepay_id=' + id);
@@ -58,5 +58,25 @@ describe('node-weixin-pay node module', function () {
     nodeWeixinConfig.merchant.init(merchant);
     var sign = nodeWeixinPay.sign(merchant, params);
     assert.equal(true, sign === '1D732D3A56A1E4213A50F3B298CF51D4');
+  });
+
+  it('should be able to sign a request', function () {
+    var params = { openid: 'oonTrs-hfXi6lZU2RbHMyXZJZqgk',
+      spbill_create_ip: '1.202.241.9',
+      notify_url: 'http://wx.t1bao.com/weixin/pay/main',
+      body: '测试支付',
+      out_trade_no: '1439920476617',
+      total_fee: '1',
+      trade_type: 'JSAPI',
+      appid: 'wx0cf777e00460d938',
+      mch_id: '1243556002',
+      nonce_str: 'huySmuPeLtOknYkmj0YK9NG1zNndix6A' };
+    var merchant = {
+      id: '1243556002',
+      key: '11111111111111111111111111111111'
+    };
+    nodeWeixinConfig.merchant.init(merchant);
+    var sign = nodeWeixinPay.sign(merchant, params);
+    assert.equal(true, sign === '84AA882864D2C632AB9CDC58B577556F');
   });
 });

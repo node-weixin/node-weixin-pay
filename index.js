@@ -29,7 +29,7 @@ var pay = {
     var error = {};
 
     if (returnCode === 'SUCCESS') {
-      var vError = this.validate(app, merchant, json);
+      var vError = this.validate(json, app, merchant);
       if (true !== vError) {
         return cb(true);
       }
@@ -46,6 +46,7 @@ var pay = {
         }
         var result = v.json.extract(json, resultValidator);
         cb(false, result, json);
+        return;
       }
     }
     cb(true, returnMsg);
@@ -72,7 +73,9 @@ var pay = {
 
     var params = _.clone(data);
     params = pay.prepare(params, config.app, config.merchant);
-    params.sign = pay.sign(config.merchant, params);
+    var sign = pay.sign(config.merchant, params);
+
+    params.sign = sign;
     var xml = util.toXml(params);
     restful.xmlssl(url, xml, config.certificate, function (error, json) {
       pay.handle(config.app, config.merchant, json, receiveConfig, cb);
@@ -107,7 +110,7 @@ var pay = {
    */
   sign: function (merchant, params) {
     var temp = util.marshall(params);
-    temp += '&key=' + merchant.key;
+    temp += '&key=' + String(merchant.key);
     temp = new buffer.Buffer(temp);
     temp = temp.toString("binary");
     var crypt = crypto.createHash('MD5');
@@ -122,15 +125,15 @@ var pay = {
     if (!v.validate(conf, data, error)) {
       return errors.ERROR;
     }
-    if (data.appid !== app.id) {
+    if (String(data.appid) !== String(app.id)) {
       return errors.APP_ID_ERROR;
     }
-    if (data.mch_id !== merchant.id) {
+    if (String(data.mch_id) !== String(merchant.id)) {
       return errors.MERCHANT_ID_ERROR;
     }
     return true;
   },
-  prepay: function (prepayId, merchant, app) {
+  prepay: function (prepayId, app, merchant) {
     var crypto = require('crypto');
     var md5 = crypto.createHash('md5');
     var timeStamp = String(new Date().getTime());
