@@ -11,7 +11,8 @@
   "license": "MIT",
   "files": [
     "index.js",
-    "lib"
+    "lib",
+    "conf"
   ],
   "keywords": [
     "node-weixin-pay",
