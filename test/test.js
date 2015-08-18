@@ -29,12 +29,12 @@ describe('node-weixin-pay node module', function () {
       id: 'dddo'
     };
     nodeWeixinConfig.merchant.init(merchant);
-    var config = nodeWeixinPay.prepay(id, app);
+    var config = nodeWeixinPay.prepay(id, merchant, app);
     assert.equal(true, config.appId === app.id);
     assert.equal(true, validator.isNumeric(config.timeStamp));
     assert.equal(true, config.package === 'prepay_id=' + id);
     assert.equal(true, config.signType === 'MD5');
-    assert.equal(true, config.paySign === '823D19278F4BE774408900E3EEE11457');
+    assert.equal(true, typeof config.paySign === 'string');
     assert.equal(true, typeof config.nonceStr === 'string');
 
   });

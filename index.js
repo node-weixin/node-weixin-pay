@@ -128,7 +128,7 @@ var pay = {
     }
     return true;
   },
-  prepay: function (prepayId, app) {
+  prepay: function (prepayId, merchant, app) {
     var crypto = require('crypto');
     var md5 = crypto.createHash('md5');
     var timeStamp = String(new Date().getTime());
@@ -144,7 +144,7 @@ var pay = {
       package: 'prepay_id=' + prepayId,
       signType: 'MD5'
     };
-    data.paySign = pay.sign(data);
+    data.paySign = this.sign(merchant, data);
     return data;
   },
   callback: require('./lib/callback'),
