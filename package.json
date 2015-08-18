@@ -1,6 +1,6 @@
 {
   "name": "node-weixin-pay",
-  "version": "0.0.2",
+  "version": "0.0.4",
   "description": "Weixin Pay functions for node",
   "author": {
     "name": "JSSDKCN",
@@ -36,7 +36,8 @@
     "jshint-stylish": "^1.0.1",
     "load-grunt-tasks": "^3.1.0",
     "node-weixin-config": "0.0.2",
-    "time-grunt": "^1.1.0"
+    "time-grunt": "^1.1.0",
+    "validator": "^4.0.5"
   },
   "scripts": {
     "test": "grunt"

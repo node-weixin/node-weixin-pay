@@ -3,10 +3,11 @@ var assert = require('assert');
 var nodeWeixinPay = require('../');
 
 var nodeWeixinConfig = require('node-weixin-config');
+var validator = require('validator');
 
 var merchant = {
-  id: '1243556002',
-  key: '02acaa43396517621e54a2bd63ec9d9d'
+  id: process.env.MERCHANT_ID || 'id',
+  key: process.env.MERCHANT_KEY || 'key'
 };
 
 
@@ -19,6 +20,22 @@ describe('node-weixin-pay node module', function () {
     };
     nodeWeixinConfig.merchant.init(merchant);
     var sign = nodeWeixinPay.sign(merchant, params);
-    assert.equal(true, sign === '764F3CE4680F26B21CE05D193246FCD5');
+    assert.equal(true, sign === '2940FE7A7091D5BEE622669A0F800908');
+  });
+
+  it('should be able to prepay', function () {
+    var id = 'id';
+    var app = {
+      id: 'dddo'
+    };
+    nodeWeixinConfig.merchant.init(merchant);
+    var config = nodeWeixinPay.prepay(id, app);
+    assert.equal(true, config.appId === app.id);
+    assert.equal(true, validator.isNumeric(config.timeStamp));
+    assert.equal(true, config.package === 'prepay_id=' + id);
+    assert.equal(true, config.signType === 'MD5');
+    assert.equal(true, config.paySign === '823D19278F4BE774408900E3EEE11457');
+    assert.equal(true, typeof config.nonceStr === 'string');
+
   });
 });

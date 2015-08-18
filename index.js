@@ -128,6 +128,25 @@ var pay = {
     }
     return true;
   },
+  prepay: function (prepayId, app) {
+    var crypto = require('crypto');
+    var md5 = crypto.createHash('md5');
+    var timeStamp = String(new Date().getTime());
+
+    md5.update(timeStamp);
+    timeStamp = Math.floor(timeStamp / 1000);
+
+    var nonceStr = md5.digest('hex');
+    var data = {
+      appId: app.id,
+      timeStamp: String(timeStamp),
+      nonceStr: nonceStr,
+      package: 'prepay_id=' + prepayId,
+      signType: 'MD5'
+    };
+    data.paySign = pay.sign(data);
+    return data;
+  },
   callback: require('./lib/callback'),
   api: require('./lib/api')
 };
