@@ -12,6 +12,7 @@ var merchant = {
 
 
 describe('node-weixin-pay node module', function () {
+  /*
   it('should be able to sign a request', function () {
     var params = {
       a:'d',
@@ -22,6 +23,7 @@ describe('node-weixin-pay node module', function () {
     var sign = nodeWeixinPay.sign(merchant, params);
     assert.equal(true, sign === '2940FE7A7091D5BEE622669A0F800908');
   });
+  */
 
   it('should be able to prepay', function () {
     var id = 'id';
@@ -36,6 +38,25 @@ describe('node-weixin-pay node module', function () {
     assert.equal(true, config.signType === 'MD5');
     assert.equal(true, typeof config.paySign === 'string');
     assert.equal(true, typeof config.nonceStr === 'string');
+  });
 
+  it('should be able to sign a request', function () {
+    var params = { openid: 'oonTrs-hfXi6lZU2RbHMyXZJZqgk',
+      spbill_create_ip: '1.202.241.205',
+      notify_url: 'http://wx.t1bao.com/weixin/pay/main',
+      body: '测试支付',
+      out_trade_no: '1439918372216',
+      total_fee: '1',
+      trade_type: 'JSAPI',
+      appid: 'wx0cf777e00460d938',
+      mch_id: '1243556002',
+      nonce_str: 'XjUw56N8MjeCUqHCwqgiKwr2CJVgYUpe' };
+    var merchant = {
+      id: '1243556002',
+      key: '11111111111111111111111111111111'
+    };
+    nodeWeixinConfig.merchant.init(merchant);
+    var sign = nodeWeixinPay.sign(merchant, params);
+    assert.equal(true, sign === '1D732D3A56A1E4213A50F3B298CF51D4');
   });
 });

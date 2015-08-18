@@ -11,6 +11,7 @@ var util = require("node-weixin-util");
 var v = require('node-form-validator');
 var errors = require('web-errors').errors;
 var crypto = require('crypto');
+var buffer = require('buffer');
 
 var pay = {
   /**
@@ -74,7 +75,7 @@ var pay = {
     params.sign = pay.sign(config.merchant, params);
     var xml = util.toXml(params);
     restful.xmlssl(url, xml, config.certificate, function (error, json) {
-      pay.handle(cb, error, json, receiveConfig);
+      pay.handle(config.app, config.merchant, json, receiveConfig, cb);
     });
   },
 
@@ -107,7 +108,9 @@ var pay = {
   sign: function (merchant, params) {
     var temp = util.marshall(params);
     temp += '&key=' + merchant.key;
-    var crypt = crypto.createHash('md5');
+    temp = new buffer.Buffer(temp);
+    temp = temp.toString("binary");
+    var crypt = crypto.createHash('MD5');
     crypt.update(temp);
     return crypt.digest('hex').toUpperCase();
   },
