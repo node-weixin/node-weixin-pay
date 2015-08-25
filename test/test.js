@@ -6,7 +6,7 @@ var nodeWeixinConfig = require('node-weixin-config');
 var validator = require('validator');
 
 var merchant = {
-  id: process.env.MERCHANT_ID || 'id',
+  id: process.env.MERCHANT_ID  + '' || 'id',
   key: process.env.MERCHANT_KEY || 'key'
 };
 
@@ -15,6 +15,8 @@ var app = {
   secret: process.env.APP_SECRET || 'appsecret',
   token: process.env.APP_TOKEN || 'apptoken'
 };
+
+console.log(merchant);
 
 
 describe('node-weixin-pay node module', function () {
