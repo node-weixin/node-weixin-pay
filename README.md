@@ -124,7 +124,7 @@ var config = nodeWeixinPay.report(config, params, function(error, data) {
 10、外理回调数据
 
 ```js
-nodeWeixinPay.handle(app, merchant, json, resultValidatorfunction(error, result, rawData) {
+nodeWeixinPay.callback.notify(app, merchant, req, function(error, data) {
 });
 ```
 

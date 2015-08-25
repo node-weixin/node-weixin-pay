@@ -101,7 +101,6 @@ var pay = {
     return data;
   },
 
-
   /**
    * Sign all data with merchant key
    * @param merchant
@@ -133,6 +132,7 @@ var pay = {
     }
     return true;
   },
+
   prepay: function (prepayId, app, merchant) {
     var crypto = require('crypto');
     var md5 = crypto.createHash('md5');

@@ -16,9 +16,6 @@ var app = {
   token: process.env.APP_TOKEN || 'apptoken'
 };
 
-console.log(merchant);
-
-
 describe('node-weixin-pay node module', function () {
 
   it('should be able to prepay', function () {
