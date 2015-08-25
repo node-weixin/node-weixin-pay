@@ -24,8 +24,8 @@
     "node-form-validator": "^0.1.2",
     "node-weixin-request": "^0.0.4",
     "node-weixin-util": "^0.0.3",
-    "node-xml2json": "^1.0.0",
-    "web-errors": "^0.1.5"
+    "web-errors": "^0.1.5",
+    "xml2json": "^0.8.2"
   },
   "devDependencies": {
     "grunt-cli": "^0.1.13",
