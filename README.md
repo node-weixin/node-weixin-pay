@@ -18,7 +18,7 @@ $ npm install --save node-weixin-pay
 
 > 通用功能
 
-1. 初始化对象与基本数据
+1、初始化对象与基本数据
 
 ```js
 var nodeWeixinPay = require('node-weixin-pay');
@@ -52,7 +52,7 @@ var params = { openid: process.env.OPENID,
   
 ```
 
-2. 签名一个请求
+2、签名一个请求
 
 ```js
 
@@ -60,7 +60,7 @@ var sign = nodeWeixinPay.sign(merchant, params);
 ```
 
 
-3. 准备一个支付配置
+3、准备一个支付配置
 
 ```js
 var id = 'id';
@@ -70,49 +70,49 @@ var config = nodeWeixinPay.prepay(id, app, merchant);
 
 > 具体的API请求部分
 
-4. 发送统一支付请求
+4、发送统一支付请求
 
 ```js
 var config = nodeWeixinPay.api.unified(config, params, function(error, data) {
 });
 ```
 
-5. 发送订单查询请求
+5、发送订单查询请求
 
 ```js
 var config = nodeWeixinPay.api.query(config, params, function(error, data) {
 });
 ```
 
-6. 发送订单关闭请求
+6、发送订单关闭请求
 
 ```js
 var config = nodeWeixinPay.api.close(config, params, function(error, data) {
 });
 ```
 
-7. 发送创建退款请求
+7、发送创建退款请求
 
 ```js
 var config = nodeWeixinPay.refund.create(config, params, function(error, data) {
 });
 ```
 
-8. 发送退款查询请求
+8、发送退款查询请求
 
 ```js
 var config = nodeWeixinPay.refund.query(config, params, function(error, data) {
 });
 ```
 
-9. 发送下载对账单请求
+9、发送下载对账单请求
 
 ```js
 var config = nodeWeixinPay.statements(config, params, function(error, data) {
 });
 ```
 
-10. 发送测速报告请求
+10、发送测速报告请求
 
 ```js
 var config = nodeWeixinPay.report(config, params, function(error, data) {
@@ -121,7 +121,7 @@ var config = nodeWeixinPay.report(config, params, function(error, data) {
 
 > 处理微信回调
 
-10. 外理回调数据
+10、外理回调数据
 
 ```js
 nodeWeixinPay.handle(app, merchant, json, resultValidatorfunction(error, result, rawData) {
