@@ -126,6 +126,11 @@ var config = nodeWeixinPay.report(config, params, function(error, data) {
 ```js
 //req.rawBody should be enabled
 var req = {rawBody: xml};
+var res = {
+  json: function() {
+
+  }
+};
 nodeWeixinPay.callback.notify(app, merchant, req, res, function(error, data) {
 });
 ```
