@@ -10,26 +10,17 @@ var merchant = {
   key: process.env.MERCHANT_KEY || 'key'
 };
 
+var app = {
+  id: process.env.APP_ID || 'appid',
+  secret: process.env.APP_SECRET || 'appsecret',
+  token: process.env.APP_TOKEN || 'apptoken'
+};
+
 
 describe('node-weixin-pay node module', function () {
-  /*
-  it('should be able to sign a request', function () {
-    var params = {
-      a:'d',
-      b:'c',
-      a1:'dd'
-    };
-    nodeWeixinConfig.merchant.init(merchant);
-    var sign = nodeWeixinPay.sign(merchant, params);
-    assert.equal(true, sign === '2940FE7A7091D5BEE622669A0F800908');
-  });
-  */
 
   it('should be able to prepay', function () {
     var id = 'id';
-    var app = {
-      id: 'dddo'
-    };
     nodeWeixinConfig.merchant.init(merchant);
     var config = nodeWeixinPay.prepay(id, app, merchant);
     assert.equal(true, config.appId === app.id);
@@ -41,42 +32,18 @@ describe('node-weixin-pay node module', function () {
   });
 
   it('should be able to sign a request', function () {
-    var params = { openid: 'oonTrs-hfXi6lZU2RbHMyXZJZqgk',
-      spbill_create_ip: '1.202.241.205',
-      notify_url: 'http://wx.t1bao.com/weixin/pay/main',
+    var params = { openid: process.env.OPENID,
+      spbill_create_ip: '1.202.241.25',
+      notify_url: 'http://wx.domain.com/weixin/pay/main',
       body: '测试支付',
-      out_trade_no: '1439918372216',
+      out_trade_no: '111',
       total_fee: '1',
       trade_type: 'JSAPI',
-      appid: 'wx0cf777e00460d938',
-      mch_id: '1243556002',
+      appid: app.id,
+      mch_id: merchant.id,
       nonce_str: 'XjUw56N8MjeCUqHCwqgiKwr2CJVgYUpe' };
-    var merchant = {
-      id: '1243556002',
-      key: '11111111111111111111111111111111'
-    };
     nodeWeixinConfig.merchant.init(merchant);
     var sign = nodeWeixinPay.sign(merchant, params);
-    assert.equal(true, sign === '1D732D3A56A1E4213A50F3B298CF51D4');
-  });
-
-  it('should be able to sign a request', function () {
-    var params = { openid: 'oonTrs-hfXi6lZU2RbHMyXZJZqgk',
-      spbill_create_ip: '1.202.241.9',
-      notify_url: 'http://wx.t1bao.com/weixin/pay/main',
-      body: '测试支付',
-      out_trade_no: '1439920476617',
-      total_fee: '1',
-      trade_type: 'JSAPI',
-      appid: 'wx0cf777e00460d938',
-      mch_id: '1243556002',
-      nonce_str: 'huySmuPeLtOknYkmj0YK9NG1zNndix6A' };
-    var merchant = {
-      id: '1243556002',
-      key: '11111111111111111111111111111111'
-    };
-    nodeWeixinConfig.merchant.init(merchant);
-    var sign = nodeWeixinPay.sign(merchant, params);
-    assert.equal(true, sign === '84AA882864D2C632AB9CDC58B577556F');
+    assert.equal(true, sign === '87CF15EEACE2EC8BAE266380B02B0CE9');
   });
 });
