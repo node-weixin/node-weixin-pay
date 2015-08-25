@@ -124,10 +124,11 @@ var config = nodeWeixinPay.report(config, params, function(error, data) {
 10、外理回调数据
 
 ```js
+//req.rawBody should be enabled
+var req = {rawBody: xml};
 nodeWeixinPay.callback.notify(app, merchant, req, function(error, data) {
 });
 ```
-
 
 
 ## License
