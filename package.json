@@ -3,11 +3,11 @@
   "version": "0.0.15",
   "description": "Weixin Pay functions for node",
   "author": {
-    "name": "JSSDKCN",
+    "name": "node-weixin",
     "email": "calidion@gmail.com",
     "url": "blog.3gcnbeta.com"
   },
-  "repository": "JSSDKCN/node-weixin-pay",
+  "repository": "node-weixin/node-weixin-pay",
   "license": "MIT",
   "files": [
     "index.js",
