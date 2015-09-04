@@ -13,6 +13,10 @@ var errors = require('web-errors').errors;
 var crypto = require('crypto');
 var buffer = require('buffer');
 
+function Pay() {
+
+}
+
 var pay = {
   /**
    * Handler for weixin server response
@@ -151,12 +155,16 @@ var pay = {
     };
     data.paySign = this.sign(merchant, data);
     return data;
-  }
+  },
+  create: function() {
+    return new Pay();
+  },
+  callback: require('./lib/callback'),
+  api: require('./lib/api')
 };
 
+_.extend(Pay.prototype, pay);
 
-module.exports = pay;
 
-pay.callback = require('./lib/callback');
-pay.api = require('./lib/api');
+module.exports = new Pay();
 

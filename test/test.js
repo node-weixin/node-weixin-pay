@@ -1,6 +1,6 @@
 'use strict';
 var assert = require('assert');
-var nodeWeixinPay = require('../');
+var nodeWeixinPay = require('../').create();
 
 var nodeWeixinConfig = require('node-weixin-config');
 var validator = require('validator');
