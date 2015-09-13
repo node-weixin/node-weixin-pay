@@ -14,7 +14,8 @@ var crypto = require('crypto');
 var buffer = require('buffer');
 
 function Pay() {
-
+  this.callback = require('./lib/callback');
+  this.api = require('./lib/api');
 }
 
 var pay = {
@@ -158,9 +159,7 @@ var pay = {
   },
   create: function() {
     return new Pay();
-  },
-  callback: require('./lib/callback'),
-  api: require('./lib/api')
+  }
 };
 
 _.extend(Pay.prototype, pay);

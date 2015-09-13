@@ -71,4 +71,16 @@ describe('node-weixin-pay node module', function () {
       assert.equal(true, result.time_end === '20150826030843');
     });
   });
+
+  it('should be able to prepay', function () {
+    var id = 'id';
+    nodeWeixinConfig.merchant.init(merchant);
+    var config = nodeWeixinPay.prepay(id, app, merchant);
+    assert.equal(true, config.appId === app.id);
+    assert.equal(true, validator.isNumeric(config.timeStamp));
+    assert.equal(true, config.package === 'prepay_id=' + id);
+    assert.equal(true, config.signType === 'MD5');
+    assert.equal(true, typeof config.paySign === 'string');
+    assert.equal(true, typeof config.nonceStr === 'string');
+  });
 });
