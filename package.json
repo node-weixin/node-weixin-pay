@@ -1,6 +1,6 @@
 {
   "name": "node-weixin-pay",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Weixin Pay functions for node",
   "author": {
     "name": "node-weixin",
@@ -22,7 +22,7 @@
   "dependencies": {
     "lodash": "^3.10.1",
     "node-form-validator": "^0.1.2",
-    "node-weixin-request": "^0.0.4",
+    "node-weixin-request": "^0.1.0",
     "node-weixin-util": "^0.0.3",
     "web-errors": "^0.1.5",
     "xml2json": "^0.8.2"
