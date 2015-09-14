@@ -36,7 +36,7 @@ var pay = {
     if (returnCode === 'SUCCESS') {
       var vError = this.validate(json, app, merchant);
       if (true !== vError) {
-        return cb(true, vError);
+        return cb(true, vError, json);
       }
 
       //是否还要验证数据
@@ -46,7 +46,7 @@ var pay = {
       var resultCode = json.result_code;
       if (resultCode === 'SUCCESS') {
         if (!v.validate(resultValidator, json, error)) {
-          cb(true, error);
+          cb(true, error, json);
           return;
         }
         var result = v.json.extract(json, resultValidator);
@@ -54,7 +54,7 @@ var pay = {
         return;
       }
     }
-    cb(true, returnMsg);
+    cb(true, returnMsg, json);
   },
 
   /**

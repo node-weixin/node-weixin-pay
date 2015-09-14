@@ -1,6 +1,6 @@
 {
   "name": "node-weixin-pay",
-  "version": "0.1.2",
+  "version": "0.1.4",
   "description": "Weixin Pay functions for node",
   "author": {
     "name": "node-weixin",
