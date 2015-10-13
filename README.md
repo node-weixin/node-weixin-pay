@@ -35,6 +35,18 @@ var app = {
   token: process.env.APP_TOKEN || 'apptoken'
 };
 
+var certificate = {
+  pkcs12: path.resolve(certPKCS12File),             //格式是文件名
+  key: String(certKey)
+};
+
+//或者
+
+var certificate = {
+  pfx: new Buffer(conf.merchant_pfx, 'base64'),     //格式是文件二进制内容
+  pfxKey: conf.merchant_id
+};
+
 //校验数据的正确性
 nodeWeixinConfig.app.init(app);
 nodeWeixinConfig.merchant.init(merchant);
@@ -73,7 +85,12 @@ var config = nodeWeixinPay.prepay(id, app, merchant);
 4、发送统一支付请求
 
 ```js
-var config = nodeWeixinPay.api.unified(config, params, function(error, data) {
+var config = {
+  app: app,
+  merchant: merchant,
+  certificate: certificate
+};
+nodeWeixinPay.api.order.unified(config, params, function(error, data) {
 });
 ```
 
