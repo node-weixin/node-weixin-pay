@@ -17,3 +17,6 @@ addons:
     packages:
     - g++-4.8
     - gcc-4.8
+
+after_script: "npm install coveralls && cat ./coverage/lcov.info | coveralls"
+
