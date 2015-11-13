@@ -6,26 +6,24 @@
  */
 
 var _ = require('lodash');
-var restful = require("node-weixin-request");
+var request = require("node-weixin-request");
 var util = require("node-weixin-util");
 var v = require('node-form-validator');
 var errors = require('web-errors').errors;
 var crypto = require('crypto');
 var buffer = require('buffer');
 
-function Pay() {
-  this.callback = require('./lib/callback');
-  this.api = require('./lib/api');
-}
-
 var pay = {
+  callback: require('./lib/callback'),
+  api:require('./lib/api'),
   /**
    * Handler for weixin server response
    *
+   * @param app
+   * @param merchant
+   * @param json                    Validation for data received
+   * @param resultValidator         Validation for data result
    * @param cb
-   * @param error
-   * @param json
-   * @param validate
    * @returns {*}
    */
   handle: function (app, merchant, json, resultValidator, cb) {
@@ -34,7 +32,7 @@ var pay = {
     var error = {};
 
     if (returnCode === 'SUCCESS') {
-      var vError = this.validate(json, app, merchant);
+      var vError = this.validate(app, merchant, json);
       if (true !== vError) {
         return cb(true, vError, json);
       }
@@ -45,7 +43,7 @@ var pay = {
       }
       var resultCode = json.result_code;
       if (resultCode === 'SUCCESS') {
-        if (!v.validate(resultValidator, json, error)) {
+        if (!v.validate(json, resultValidator, error)) {
           cb(true, error, json);
           return;
         }
@@ -58,7 +56,7 @@ var pay = {
   },
 
   /**
-   * Basic http request for pay apis
+   * Basic http request wrapper for pay apis, which need to be encrypted and verified for their data format
    *
    * @param url                 Requesting url
    * @param data                Data to be sent
@@ -77,12 +75,12 @@ var pay = {
     }
 
     var params = _.clone(data);
-    params = pay.prepare(params, config.app, config.merchant);
+    params = pay.prepare(config.app, config.merchant, params);
     var sign = pay.sign(config.merchant, params);
 
     params.sign = sign;
     var xml = util.toXml(params);
-    restful.xmlssl(url, xml, config.certificate, function (error, json) {
+    request.xmlssl(url, xml, config.certificate, function (error, json) {
       pay.handle(config.app, config.merchant, json, receiveConfig, cb);
     });
   },
@@ -96,7 +94,7 @@ var pay = {
    * @param device
    * @returns {*}
    */
-  prepare: function (data, app, merchant, device) {
+  prepare: function (app, merchant, data, device) {
     data.appid = app.id;
     data.mch_id = merchant.id;
     if (device) {
@@ -108,6 +106,7 @@ var pay = {
 
   /**
    * Sign all data with merchant key
+   *
    * @param merchant
    * @param params
    * @returns {string}
@@ -121,12 +120,21 @@ var pay = {
     crypt.update(temp);
     return crypt.digest('hex').toUpperCase();
   },
-  validate: function (data, app, merchant) {
+
+  /**
+   *  Validate header for data received
+   *
+   * @param data
+   * @param app
+   * @param merchant
+   * @returns {*}
+   */
+  validate: function (app, merchant, data, error) {
     var config = require('./conf/validation');
     var conf = config.auth.header;
-    var error = {};
+    error = error || {};
 
-    if (!v.validate(conf, data, error)) {
+    if (!v.validate(data, conf, error)) {
       return errors.ERROR;
     }
     if (String(data.appid) !== String(app.id)) {
@@ -138,7 +146,15 @@ var pay = {
     return true;
   },
 
-  prepay: function (prepayId, app, merchant) {
+  /**
+   *  Make prepay data for jssdk
+   *
+   * @param app
+   * @param merchant
+   * @param prepayId
+   * @returns {{appId: *, timeStamp: string, nonceStr, package: string, signType: string}}
+   */
+  prepay: function (app, merchant, prepayId) {
     var crypto = require('crypto');
     var md5 = crypto.createHash('md5');
     var timeStamp = String(new Date().getTime());
@@ -156,14 +172,8 @@ var pay = {
     };
     data.paySign = this.sign(merchant, data);
     return data;
-  },
-  create: function() {
-    return new Pay();
   }
 };
 
-_.extend(Pay.prototype, pay);
-
-
-module.exports = new Pay();
+module.exports = pay;
 

@@ -47,6 +47,13 @@ var certificate = {
   pfxKey: conf.merchant_id
 };
 
+//对于大部分的支付接口来说是需要config的
+var config = {
+  app: app,
+  merchant: merchant,
+  certificate: certificate
+};
+
 //校验数据的正确性
 nodeWeixinConfig.app.init(app);
 nodeWeixinConfig.merchant.init(merchant);
@@ -76,7 +83,7 @@ var sign = nodeWeixinPay.sign(merchant, params);
 
 ```js
 var id = 'id';
-var config = nodeWeixinPay.prepay(id, app, merchant);
+var config = nodeWeixinPay.prepay(app, merchant, id);
 ```
 
 
@@ -85,11 +92,6 @@ var config = nodeWeixinPay.prepay(id, app, merchant);
 4、发送统一支付请求
 
 ```js
-var config = {
-  app: app,
-  merchant: merchant,
-  certificate: certificate
-};
 nodeWeixinPay.api.order.unified(config, params, function(error, data) {
 });
 ```
