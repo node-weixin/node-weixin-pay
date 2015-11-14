@@ -80,7 +80,7 @@ describe('lib/apis', function () {
       nock(url)
         .post(data)
         .reply(200, xml(reply));
-      nodeWeixinPay.api.order.unified(config, data, function () {
+      nodeWeixinPay.api.refund.create(config, data, function () {
         assert.equal(true, true);
         done();
       });
@@ -91,7 +91,7 @@ describe('lib/apis', function () {
       nock(url)
         .post(data)
         .reply(200, xml(reply));
-      nodeWeixinPay.api.order.unified(config, data, function () {
+      nodeWeixinPay.api.refund.query(config, data, function () {
         assert.equal(true, true);
         done();
       });
@@ -102,7 +102,7 @@ describe('lib/apis', function () {
     nock(url)
       .post(data)
       .reply(200, xml(reply));
-    nodeWeixinPay.api.order.unified(config, data, function () {
+    nodeWeixinPay.api.statements(config, data, function () {
       assert.equal(true, true);
       done();
     });
@@ -113,7 +113,7 @@ describe('lib/apis', function () {
     nock(url)
       .post(data)
       .reply(200, xml(reply));
-    nodeWeixinPay.api.order.unified(config, data, function () {
+    nodeWeixinPay.api.report(config, data, function () {
       assert.equal(true, true);
       done();
     });
