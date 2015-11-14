@@ -69,7 +69,7 @@ var pay = {
     var error = {};
 
     //Validate Sending Data
-    if (!v.validate(sendConfig, data, error)) {
+    if (!v.validate(data, sendConfig, error)) {
       cb(true, error);
       return;
     }
