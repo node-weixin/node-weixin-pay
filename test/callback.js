@@ -15,16 +15,10 @@ nodeWeixinConfig.app.init(app);
 
 describe("lib/callback", function () {
   describe("#notify", function () {
-
     it('shoud be able to notify', function (done) {
-
-
       var request = require('supertest');
       var express = require('express');
-
       var app = express();
-
-
       app.post('/notify', function (req, res) {
         req.rawBody = '<xml><appid><![CDATA[' +
           app.id + ']]></appid> <bank_type><![CDATA[CMB_CREDIT]]></bank_type> <cash_fee><![CDATA[1]]></cash_fee> <fee_type><![CDATA[CNY]]></fee_type> <is_subscribe><![CDATA[Y]]></is_subscribe> <mch_id><![CDATA[' +

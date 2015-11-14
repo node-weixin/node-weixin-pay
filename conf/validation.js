@@ -19,7 +19,7 @@ module.exports = {
         type: 'string',
         maxLength: 32,
         required: true
-      },
+      }
     },
     middle: {
       result_code: {
