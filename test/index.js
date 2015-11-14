@@ -64,7 +64,7 @@ describe('node-weixin-pay index', function () {
       var sign = nodeWeixinPay.sign(merchant, params);
       assert.equal(true, sign === '87CF15EEACE2EC8BAE266380B02B0CE9');
     });
-  })
+  });
 
 
   describe("#validate", function () {
@@ -109,11 +109,10 @@ describe('node-weixin-pay index', function () {
   });
   describe('#prepare', function () {
     it('should be able to prepare', function () {
-      var id = 'id';
       var data = {};
       var config = nodeWeixinPay.prepare(app, merchant, data);
-      assert.equal(true, config.appid === app.id)
-      assert.equal(true, config.mch_id === merchant.id)
+      assert.equal(true, config.appid === app.id);
+      assert.equal(true, config.mch_id === merchant.id);
       assert.equal(true, typeof config.nonce_str === 'string');
       assert.equal(true, config.nonce_str.length >= 1);
       assert.equal(true, nodeWeixinPay.validate(app, merchant, config));
@@ -122,7 +121,6 @@ describe('node-weixin-pay index', function () {
 
   describe('#handle', function () {
     it('should be able to handle response FAILED', function (done) {
-      var id = 'id';
       var data = {
         return_code: 'FAILED',
         return_msg: '失败!',
@@ -130,14 +128,13 @@ describe('node-weixin-pay index', function () {
         mch_id: merchant.id,
         nonce_str: 'sodsfd'
       };
-      nodeWeixinPay.handle(app, merchant, data, validation.auth.unified, function (error, result, data) {
+      nodeWeixinPay.handle(app, merchant, data, validation.auth.unified, function (error) {
         assert.equal(true, error);
         done();
       });
     });
 
     it('should be able to handle response SUCCESS without data', function (done) {
-      var id = 'id';
       var data = {
         return_code: 'SUCCESS',
         return_msg: '成功!',
@@ -145,14 +142,13 @@ describe('node-weixin-pay index', function () {
         mch_id: merchant.id,
         nonce_str: 'sodsfd'
       };
-      nodeWeixinPay.handle(app, merchant, data, null, function (error, result, data) {
+      nodeWeixinPay.handle(app, merchant, data, null, function (error) {
         assert.equal(true, !error);
         done();
       });
     });
 
     it('should fail to handle response SUCCESS without data when validator specified', function (done) {
-      var id = 'id';
       var data = {
         return_code: 'SUCCESS',
         return_msg: '成功!',
@@ -160,14 +156,13 @@ describe('node-weixin-pay index', function () {
         mch_id: merchant.id,
         nonce_str: 'sodsfd'
       };
-      nodeWeixinPay.handle(app, merchant, data, validation.unified.receiving, function (error, result, data) {
+      nodeWeixinPay.handle(app, merchant, data, validation.unified.receiving, function (error) {
         assert.equal(true, error);
         done();
       });
     });
 
     it('should fail to handle response SUCCESS with data', function (done) {
-      var id = 'id';
       var data = {
         return_code: 'SUCCESS',
         return_msg: '成功!',
@@ -176,14 +171,13 @@ describe('node-weixin-pay index', function () {
         nonce_str: 'sodsfd',
         result_code: 'SUCCESS'
       };
-      nodeWeixinPay.handle(app, merchant, data, validation.unified.receiving, function (error, result, data) {
+      nodeWeixinPay.handle(app, merchant, data, validation.unified.receiving, function (error) {
         assert.equal(true, error);
         done();
       });
     });
 
     it('should be able to handle response SUCCESS with data', function (done) {
-      var id = 'id';
       var data = {
         return_code: 'SUCCESS',
         return_msg: '成功!',
@@ -194,7 +188,7 @@ describe('node-weixin-pay index', function () {
         trade_type: 'dodo',
         prepay_id: '18383'
       };
-      nodeWeixinPay.handle(app, merchant, data, validation.unified.receiving, function (error, result, data) {
+      nodeWeixinPay.handle(app, merchant, data, validation.unified.receiving, function (error) {
         assert.equal(true, !error);
         done();
       });
@@ -212,7 +206,7 @@ describe('node-weixin-pay index', function () {
           return_code: 'sdfsdf',
           appid: 'sdfosofd'
         }));
-      nodeWeixinPay.request(config, url, data, validation.unified.sending, validation.unified.receiving, function (error, data) {
+      nodeWeixinPay.request(config, url, data, validation.unified.sending, validation.unified.receiving, function (error) {
         assert.equal(true, error);
         done();
       });
@@ -230,11 +224,10 @@ describe('node-weixin-pay index', function () {
         notify_url: 'https://helloworld.com',
         trade_type: 'JSSDK'
       };
-      var fs = require('fs');
-      var path = require('path');
       var xmlStr = xml({
         xml: [{
-          return_code: 'SUCCESS'},
+          return_code: 'SUCCESS'
+        },
           {return_msg: '成功!'},
           {appid: app.id},
           {mch_id: merchant.id},
@@ -247,10 +240,12 @@ describe('node-weixin-pay index', function () {
       nock(url)
         .post('/')
         .reply(200, xmlStr);
-      nodeWeixinPay.request(config, url, data, validation.unified.sending, validation.unified.receiving, function (error, data) {
+      nodeWeixinPay.request(config, url, data, validation.unified.sending, validation.unified.receiving, function (error) {
         assert.equal(true, !error);
         done();
       });
     });
   });
 });
+
+require('./callback');
