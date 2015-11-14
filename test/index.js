@@ -117,6 +117,16 @@ describe('node-weixin-pay index', function () {
       assert.equal(true, config.nonce_str.length >= 1);
       assert.equal(true, nodeWeixinPay.validate(app, merchant, config));
     });
+
+    it('should be able to prepare', function () {
+      var data = {};
+      var config = nodeWeixinPay.prepare(app, merchant, data, {device_info: 'sfdsfd'});
+      assert.equal(true, config.appid === app.id);
+      assert.equal(true, config.mch_id === merchant.id);
+      assert.equal(true, typeof config.nonce_str === 'string');
+      assert.equal(true, config.nonce_str.length >= 1);
+      assert.equal(true, nodeWeixinPay.validate(app, merchant, config, {device_info: 'sfdsfd'}));
+    });
   });
 
   describe('#handle', function () {
@@ -144,6 +154,20 @@ describe('node-weixin-pay index', function () {
       };
       nodeWeixinPay.handle(app, merchant, data, null, function (error) {
         assert.equal(true, !error);
+        done();
+      });
+    });
+
+    it('should fail to handle response SUCCESS without data when validator specified', function (done) {
+      var data = {
+        return_code: 'SUCCESS',
+        return_msg: '成功!',
+        appid: 'asfdssfsfd',
+        mch_id: merchant.id,
+        nonce_str: 'sodsfd'
+      };
+      nodeWeixinPay.handle(app, merchant, data, validation.unified.receiving, function (error) {
+        assert.equal(true, error);
         done();
       });
     });

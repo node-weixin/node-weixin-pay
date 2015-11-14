@@ -74,4 +74,48 @@ describe('lib/apis', function () {
       });
     });
   });
+  describe('.refund', function () {
+    it('refund.create', function (done) {
+      var url = 'https://api.mch.weixin.qq.com/secapi/pay/refund';
+      nock(url)
+        .post(data)
+        .reply(200, xml(reply));
+      nodeWeixinPay.api.order.unified(config, data, function () {
+        assert.equal(true, true);
+        done();
+      });
+    });
+
+    it('refund.query', function (done) {
+      var url = 'https://api.mch.weixin.qq.com/pay/refundquery';
+      nock(url)
+        .post(data)
+        .reply(200, xml(reply));
+      nodeWeixinPay.api.order.unified(config, data, function () {
+        assert.equal(true, true);
+        done();
+      });
+    });
+  });
+  it('statements', function (done) {
+    var url = 'https://api.mch.weixin.qq.com/pay/downloadbill';
+    nock(url)
+      .post(data)
+      .reply(200, xml(reply));
+    nodeWeixinPay.api.order.unified(config, data, function () {
+      assert.equal(true, true);
+      done();
+    });
+  });
+
+  it('report', function (done) {
+    var url = 'https://api.mch.weixin.qq.com/payitil/report';
+    nock(url)
+      .post(data)
+      .reply(200, xml(reply));
+    nodeWeixinPay.api.order.unified(config, data, function () {
+      assert.equal(true, true);
+      done();
+    });
+  });
 });
