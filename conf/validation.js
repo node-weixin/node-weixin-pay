@@ -76,12 +76,10 @@ module.exports = {
       time_start: {
         type: 'string',
         maxLength: 14,
-        required: true
       },
       time_expire: {
         type: 'string',
         maxLength: 14,
-        required: true
       },
       goods_tag: {
         type: 'string',
