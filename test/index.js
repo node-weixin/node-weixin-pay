@@ -50,7 +50,7 @@ describe('node-weixin-pay index', function () {
   describe('#sign', function () {
     it('should be able to sign a request', function () {
       var params = {
-        openid: process.env.OPENID,
+        openid: process.env.APP_OPENID,
         spbill_create_ip: '1.202.241.25',
         notify_url: 'http://wx.domain.com/weixin/pay/main',
         body: '测试支付',
@@ -62,8 +62,7 @@ describe('node-weixin-pay index', function () {
         nonce_str: 'XjUw56N8MjeCUqHCwqgiKwr2CJVgYUpe'
       };
       var sign = nodeWeixinPay.sign(merchant, params);
-      console.log(sign);
-      assert.equal(true, sign === '87CF15EEACE2EC8BAE266380B02B0CE9');
+      assert.equal(true, sign === '12BC00BB73D08E7FC13CB8DEC89A9239');
     });
   });
 
