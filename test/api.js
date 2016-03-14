@@ -1,20 +1,17 @@
 'use strict';
-
-
-//Included Packages
+/* eslint camelcase: [2, {properties: "never"}] */
+// Included Packages
 var assert = require('assert');
 var nock = require('nock');
-//var errors = require('web-errors').errors;
-//var validator = require('validator');
+// var errors = require('web-errors').errors;
+// var validator = require('validator');
 var xml = require('xml');
 
 var _ = require('lodash');
 
-
-//
 var nodeWeixinPay = require('../');
 var nodeWeixinConfig = require('node-weixin-config');
-//var validation = require('../conf/validation');
+// var validation = require('../conf/validation');
 
 var merchant = require('./config/merchant');
 
@@ -25,13 +22,11 @@ var certificate = require('./config/certificate');
 nodeWeixinConfig.merchant.init(merchant);
 nodeWeixinConfig.app.init(app);
 
-
 var config = {
   app: app,
   merchant: merchant,
   certificate: certificate
 };
-
 
 describe('lib/apis', function () {
   var header = {
@@ -39,20 +34,19 @@ describe('lib/apis', function () {
     mch_id: merchant.id,
     nonce_str: 'asdfosofd'
   };
-  var data = {
-  };
+  var data = {};
   var reply = _.extend(header, {});
   describe('.order', function () {
-      it('order.untified', function (done) {
-        var url = 'https://api.mch.weixin.qq.com/pay/unifiedorder';
-        nock(url)
-          .post(data)
-          .reply(200, xml(reply));
-        nodeWeixinPay.api.order.unified(config, data, function () {
-          assert.equal(true, true);
-          done();
-        });
+    it('order.untified', function (done) {
+      var url = 'https://api.mch.weixin.qq.com/pay/unifiedorder';
+      nock(url)
+        .post(data)
+        .reply(200, xml(reply));
+      nodeWeixinPay.api.order.unified(config, data, function () {
+        assert.equal(true, true);
+        done();
       });
+    });
     it('order.query', function (done) {
       var url = 'https://api.mch.weixin.qq.com/pay/orderquery';
       nock(url)

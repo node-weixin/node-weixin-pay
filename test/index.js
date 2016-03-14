@@ -1,18 +1,16 @@
 'use strict';
+/* eslint camelcase: [2, {properties: "never"}] */
 
-
-//Included Packages
+// Included Packages
 var assert = require('assert');
 var nock = require('nock');
-var errors = require('web-errors').errors;
 var validator = require('validator');
 var xml = require('xml');
-
 
 //
 var nodeWeixinPay = require('../');
 var nodeWeixinConfig = require('node-weixin-config');
-var validation = require('../conf/validation');
+var validation = require('../lib/conf/validation');
 
 var merchant = require('./config/merchant');
 
@@ -23,28 +21,26 @@ var certificate = require('./config/certificate');
 nodeWeixinConfig.merchant.init(merchant);
 nodeWeixinConfig.app.init(app);
 
-
 var config = {
   app: app,
   merchant: merchant,
   certificate: certificate
 };
 
-
 describe('node-weixin-pay index', function () {
   it('should have these properties', function () {
     var fucList = ['sign', 'validate', 'prepay', 'prepare', 'request', 'handle'];
     for (var i = 0; i < fucList.length; i++) {
-      assert.equal(true, nodeWeixinPay[fucList[i]] instanceof  Function);
+      assert.equal(true, nodeWeixinPay[fucList[i]] instanceof Function);
     }
-    assert.equal(true, nodeWeixinPay.callback.notify instanceof  Function);
-    assert.equal(true, nodeWeixinPay.api.order.unified instanceof  Function);
-    assert.equal(true, nodeWeixinPay.api.order.query instanceof  Function);
-    assert.equal(true, nodeWeixinPay.api.order.close instanceof  Function);
-    assert.equal(true, nodeWeixinPay.api.refund.create instanceof  Function);
-    assert.equal(true, nodeWeixinPay.api.refund.query instanceof  Function);
-    assert.equal(true, nodeWeixinPay.api.statements instanceof  Function);
-    assert.equal(true, nodeWeixinPay.api.report instanceof  Function);
+    assert.equal(true, nodeWeixinPay.callback.notify instanceof Function);
+    assert.equal(true, nodeWeixinPay.api.order.unified instanceof Function);
+    assert.equal(true, nodeWeixinPay.api.order.query instanceof Function);
+    assert.equal(true, nodeWeixinPay.api.order.close instanceof Function);
+    assert.equal(true, nodeWeixinPay.api.refund.create instanceof Function);
+    assert.equal(true, nodeWeixinPay.api.refund.query instanceof Function);
+    assert.equal(true, nodeWeixinPay.api.statements instanceof Function);
+    assert.equal(true, nodeWeixinPay.api.report instanceof Function);
   });
 
   describe('#sign', function () {
@@ -66,31 +62,43 @@ describe('node-weixin-pay index', function () {
     });
   });
 
-
-  describe("#validate", function () {
+  describe('#validate', function () {
     it('should get an error ', function () {
       var error = {};
       var result = nodeWeixinPay.validate(app, merchant, {}, error);
-      assert.equal(true, result === errors.ERROR);
+      console.log(error);
+      assert.equal(true, result instanceof Error);
       assert.equal(true, error.key === 'appid');
-      assert.equal(true, error.reason === 'Key appid is NULL');
+      assert.equal(true, error.reason === 'Key appid is undefined');
     });
 
     it('should get an error for appid', function () {
       var error = {};
-      var result = nodeWeixinPay.validate(app, merchant, {appid: 'aaa', mch_id: 'bb', nonce_str: 'ccc'}, error);
-      assert.equal(true, result === errors.APP_ID_ERROR);
+      var result = nodeWeixinPay.validate(app, merchant, {
+        appid: 'aaa',
+        mch_id: 'bb',
+        nonce_str: 'ccc'
+      }, error);
+      assert.equal(true, result instanceof Error);
     });
 
     it('should get an error for merchant id', function () {
       var error = {};
-      var result = nodeWeixinPay.validate(app, merchant, {appid: app.id, mch_id: 'SODFSOFS', nonce_str: 'ccc'}, error);
-      assert.equal(true, result === errors.MERCHANT_ID_ERROR);
+      var result = nodeWeixinPay.validate(app, merchant, {
+        appid: app.id,
+        mch_id: 'SODFSOFS',
+        nonce_str: 'ccc'
+      }, error);
+      assert.equal(true, result instanceof Error);
     });
 
     it('should validate ok', function () {
       var error = {};
-      var result = nodeWeixinPay.validate(app, merchant, {appid: app.id, mch_id: merchant.id, nonce_str: 'ccc'}, error);
+      var result = nodeWeixinPay.validate(app, merchant, {
+        appid: app.id,
+        mch_id: merchant.id,
+        nonce_str: 'ccc'
+      }, error);
       assert.equal(true, result);
     });
   });
@@ -107,6 +115,7 @@ describe('node-weixin-pay index', function () {
       assert.equal(true, typeof config.nonceStr === 'string');
     });
   });
+
   describe('#prepare', function () {
     it('should be able to prepare', function () {
       var data = {};
@@ -120,12 +129,16 @@ describe('node-weixin-pay index', function () {
 
     it('should be able to prepare', function () {
       var data = {};
-      var config = nodeWeixinPay.prepare(app, merchant, data, {device_info: 'sfdsfd'});
+      var config = nodeWeixinPay.prepare(app, merchant, data, {
+        device_info: 'sfdsfd'
+      });
       assert.equal(true, config.appid === app.id);
       assert.equal(true, config.mch_id === merchant.id);
       assert.equal(true, typeof config.nonce_str === 'string');
       assert.equal(true, config.nonce_str.length >= 1);
-      assert.equal(true, nodeWeixinPay.validate(app, merchant, config, {device_info: 'sfdsfd'}));
+      assert.equal(true, nodeWeixinPay.validate(app, merchant, config, {
+        device_info: 'sfdsfd'
+      }));
     });
   });
 
@@ -220,7 +233,7 @@ describe('node-weixin-pay index', function () {
   });
   describe('#request', function () {
     it('should fail to sending data without matching config', function (done) {
-      var url = "https://helloworld.com";
+      var url = 'https://helloworld.com';
       var data = {
         body: 'sdofsofd'
       };
@@ -237,7 +250,7 @@ describe('node-weixin-pay index', function () {
     });
 
     it('should be able to sending data with matching config', function (done) {
-      var url = "https://post.helloworld.com/";
+      var url = 'https://post.helloworld.com/';
       var data = {
         body: 'sdofsofd',
         out_trade_no: '8283232323',
@@ -251,15 +264,21 @@ describe('node-weixin-pay index', function () {
       var xmlStr = xml({
         xml: [{
           return_code: 'SUCCESS'
-        },
-          {return_msg: '成功!'},
-          {appid: app.id},
-          {mch_id: merchant.id},
-          {nonce_str: 'sodsfd'},
-          {result_code: 'SUCCESS'},
-          {trade_type: 'dodo'},
-          {prepay_id: '18383'}
-        ]
+        }, {
+          return_msg: '成功!'
+        }, {
+          appid: app.id
+        }, {
+          mch_id: merchant.id
+        }, {
+          nonce_str: 'sodsfd'
+        }, {
+          result_code: 'SUCCESS'
+        }, {
+          trade_type: 'dodo'
+        }, {
+          prepay_id: '18383'
+        }]
       });
       nock(url)
         .post('/')

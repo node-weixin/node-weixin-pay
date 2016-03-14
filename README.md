@@ -1,10 +1,8 @@
-#  [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-image]][daviddm-url] [![Coveralls Status][coveralls-image]][coveralls-url]
+# node-weixin-pay [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-image]][daviddm-url] [![Coverage percentage][coveralls-image]][coveralls-url]
 
 > Weixin Pay functions for node
 
-
 支持QQ群：39287176
-
 
 ## Install
 
@@ -68,7 +66,7 @@ var params = { openid: process.env.OPENID,
   appid: app.id,
   mch_id: merchant.id,
   nonce_str: 'XjUw56N8MjeCUqHCwqgiKwr2CJVgYUpe' };
-  
+
 ```
 
 2、签名一个请求
@@ -154,10 +152,9 @@ nodeWeixinPay.callback.notify(app, merchant, req, res, function(error, data) {
 });
 ```
 
-
 ## License
 
-MIT © [node-weixin](www.node-weixin.com)
+Apache-2.0 © [calidion](calidion.github.io)
 
 
 [npm-image]: https://badge.fury.io/js/node-weixin-pay.svg
@@ -166,6 +163,5 @@ MIT © [node-weixin](www.node-weixin.com)
 [travis-url]: https://travis-ci.org/node-weixin/node-weixin-pay
 [daviddm-image]: https://david-dm.org/node-weixin/node-weixin-pay.svg?theme=shields.io
 [daviddm-url]: https://david-dm.org/node-weixin/node-weixin-pay
-[coveralls-image]: https://coveralls.io/repos/node-weixin/node-weixin-pay/badge.svg?branch=master&service=github
-[coveralls-url]: https://coveralls.io/github/node-weixin/node-weixin-pay?branch=master
-
+[coveralls-image]: https://coveralls.io/repos/node-weixin/node-weixin-pay/badge.svg
+[coveralls-url]: https://coveralls.io/r/node-weixin/node-weixin-pay

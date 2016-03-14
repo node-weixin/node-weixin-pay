@@ -1,4 +1,4 @@
 module.exports = {
-  id: process.env.MERCHANT_ID + '',
+  id: String(process.env.MERCHANT_ID),
   key: process.env.MERCHANT_KEY
 };
