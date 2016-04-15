@@ -57,8 +57,11 @@ describe('node-weixin-pay index', function () {
         mch_id: merchant.id,
         nonce_str: 'XjUw56N8MjeCUqHCwqgiKwr2CJVgYUpe'
       };
+      console.log(params);
       var sign = nodeWeixinPay.sign(merchant, params);
-      assert.equal(true, sign === '12BC00BB73D08E7FC13CB8DEC89A9239');
+      console.log(sign);
+      console.log(sign.length);
+      assert.equal(true, sign.length === 32);
     });
   });
 
