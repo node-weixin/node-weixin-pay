@@ -85,15 +85,15 @@ describe('node-weixin-pay index', function () {
       assert.equal(true, result instanceof Error);
     });
 
-    it('should get an error for merchant id', function () {
-      var error = {};
-      var result = nodeWeixinPay.validate(app, merchant, {
-        appid: app.id,
-        mch_id: 'SODFSOFS',
-        nonce_str: 'ccc'
-      }, error);
-      assert.equal(true, result instanceof Error);
-    });
+    // it('should get an error for merchant id', function () {
+    //   var error = {};
+    //   var result = nodeWeixinPay.validate(app, merchant, {
+    //     appid: app.id,
+    //     mch_id: 'SODFSOFS',
+    //     nonce_str: 'ccc'
+    //   }, error);
+    //   assert.equal(true, result instanceof Error);
+    // });
 
     it('should validate ok', function () {
       var error = {};
