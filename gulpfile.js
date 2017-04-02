@@ -59,6 +59,4 @@ gulp.task('coveralls', ['test'], function () {
 });
 
 gulp.task('prepublish', ['nsp']);
-gulp.task('default', ['static', 'test', 'coveralls'], function () {
-  process.exit();
-});
+gulp.task('default', ['static', 'test', 'coveralls']);
