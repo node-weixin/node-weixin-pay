@@ -106,6 +106,16 @@ describe('node-weixin-pay index', function () {
     });
   });
 
+  describe('#qrcode', function () {
+    it('should be able to generate qrcode string', function () {
+      var id = 'product_id';
+      console.log(app, merchant);
+      var qrcode = nodeWeixinPay.qrcode(app, merchant, id);
+      console.log(qrcode);
+      assert(qrcode);
+    });
+  });
+
   describe('#prepay', function () {
     it('should be able to prepay', function () {
       var id = 'id';
