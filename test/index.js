@@ -69,7 +69,6 @@ describe('node-weixin-pay index', function () {
     it('should get an error ', function () {
       var error = {};
       var result = nodeWeixinPay.validate(app, merchant, {}, error);
-      console.log(error);
       assert.equal(true, result instanceof Error);
       assert.equal(true, error.key === 'appid');
       assert.equal(true, error.reason === 'Key appid is undefined');
@@ -109,9 +108,7 @@ describe('node-weixin-pay index', function () {
   describe('#qrcode', function () {
     it('should be able to generate qrcode string', function () {
       var id = 'product_id';
-      console.log(app, merchant);
       var qrcode = nodeWeixinPay.qrcode(app, merchant, id);
-      console.log(qrcode);
       assert(qrcode);
     });
   });
