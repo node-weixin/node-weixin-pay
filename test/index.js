@@ -57,10 +57,7 @@ describe('node-weixin-pay index', function () {
         mch_id: merchant.id,
         nonce_str: 'XjUw56N8MjeCUqHCwqgiKwr2CJVgYUpe'
       };
-      console.log(params);
       var sign = nodeWeixinPay.sign(merchant, params);
-      console.log(sign);
-      console.log(sign.length);
       assert.equal(true, sign.length === 32);
     });
   });
@@ -264,7 +261,7 @@ describe('node-weixin-pay index', function () {
       var data = {
         body: 'sdofsofd',
         out_trade_no: '8283232323',
-        total_fee: 1110,
+        total_fee: 1,
         spbill_create_ip: '127.0.0.1',
         time_start: '19001212',
         time_expire: '19001212',
@@ -293,6 +290,47 @@ describe('node-weixin-pay index', function () {
       nock(url)
         .post('/')
         .reply(200, xmlStr);
+      nodeWeixinPay.request(config, url, data, validation.unified.sending, validation.unified.receiving, function (error) {
+        assert.equal(true, !error);
+        done();
+      });
+    });
+
+    it('should be able to sending data with ssl', function (done) {
+      var url = 'https://post.helloworld.com/';
+      var data = {
+        body: 'sdofsofd',
+        out_trade_no: '8283232323',
+        total_fee: 1,
+        spbill_create_ip: '127.0.0.1',
+        time_start: '19001212',
+        time_expire: '19001212',
+        notify_url: 'https://helloworld.com',
+        trade_type: 'JSSDK'
+      };
+      var xmlStr = xml({
+        xml: [{
+          return_code: 'SUCCESS'
+        }, {
+          return_msg: '成功!'
+        }, {
+          appid: app.id
+        }, {
+          mch_id: merchant.id
+        }, {
+          nonce_str: 'sodsfd'
+        }, {
+          result_code: 'SUCCESS'
+        }, {
+          trade_type: 'dodo'
+        }, {
+          prepay_id: '18383'
+        }]
+      });
+      nock(url)
+        .post('/')
+        .reply(200, xmlStr);
+      config.ssl = true;
       nodeWeixinPay.request(config, url, data, validation.unified.sending, validation.unified.receiving, function (error) {
         assert.equal(true, !error);
         done();
