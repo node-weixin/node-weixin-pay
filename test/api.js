@@ -112,4 +112,59 @@ describe('lib/apis', function () {
       done();
     });
   });
+
+  it('redenvelope.create', function (done) {
+    var url = 'https://api.mch.weixin.qq.com/mmpaymkttransfers/sendredpack';
+    nock(url)
+      .post(data)
+      .reply(200, xml(reply));
+    nodeWeixinPay.api.redenvelope.create(config, data, function () {
+      assert.equal(true, true);
+      done();
+    });
+  });
+
+  it('redenvelope.distribute', function (done) {
+    var url = 'https://api.mch.weixin.qq.com/mmpaymkttransfers/sendgroupredpack';
+    nock(url)
+      .post(data)
+      .reply(200, xml(reply));
+    nodeWeixinPay.api.redenvelope.distribute(config, data, function () {
+      assert.equal(true, true);
+      done();
+    });
+  });
+
+  it('redenvelope.query', function (done) {
+    var url = 'https://api.mch.weixin.qq.com/mmpaymkttransfers/gethbinfo';
+    nock(url)
+      .post(data)
+      .reply(200, xml(reply));
+    nodeWeixinPay.api.redenvelope.query(config, data, function () {
+      assert.equal(true, true);
+      done();
+    });
+  });
+
+  it('enterprise.create', function (done) {
+    var url = 'https://api.mch.weixin.qq.com/mmpaymkttransfers/promotion/transfers';
+    nock(url)
+      .post(data)
+      .reply(200, xml(reply));
+    nodeWeixinPay.api.enterprise.create(config, data, function () {
+      assert.equal(true, true);
+      done();
+    });
+  });
+
+  it('enterprise.query', function (done) {
+    var url = 'https://api.mch.weixin.qq.com/mmpaymkttransfers/gettransferinfo';
+    nock(url)
+      .post(data)
+      .reply(200, xml(reply));
+    nodeWeixinPay.api.enterprise.query(config, data, function () {
+      assert.equal(true, true);
+      done();
+    });
+  });
 });

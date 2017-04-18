@@ -64,11 +64,9 @@ describe('node-weixin-pay index', function () {
 
   describe('#validate', function () {
     it('should get an error ', function () {
-      var error = {};
-      var result = nodeWeixinPay.validate(app, merchant, {}, error);
+      var result = nodeWeixinPay.validate(app, merchant, {});
       assert.equal(true, result instanceof Error);
-      assert.equal(true, error.key === 'appid');
-      assert.equal(true, error.reason === 'Key appid is undefined');
+      assert.equal('Validation Failed!', result.message);
     });
 
     it('should get an error for appid', function () {
@@ -79,6 +77,7 @@ describe('node-weixin-pay index', function () {
         nonce_str: 'ccc'
       }, error);
       assert.equal(true, result instanceof Error);
+      assert.equal('AppId Invalid!', result.message);
     });
 
     // it('should get an error for merchant id', function () {

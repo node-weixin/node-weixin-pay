@@ -10,19 +10,19 @@
 $ npm install --save node-weixin-pay
 ```
 
-
 ## Usage
 
 
-> 通用功能
+### 通用功能
 
 1、初始化对象与基本数据
 
 ```js
+
 var nodeWeixinPay = require('node-weixin-pay');
 var nodeWeixinConfig = require('node-weixin-config');
 
-
+// 必须
 var merchant = {
   id: process.env.MERCHANT_ID || 'id',
   key: process.env.MERCHANT_KEY || 'key'
@@ -32,6 +32,8 @@ var app = {
   secret: process.env.APP_SECRET || 'appsecret',
   token: process.env.APP_TOKEN || 'apptoken'
 };
+
+// 证书是可选的，只有需要退款时才需要
 
 var certificate = {
   pkcs12: path.resolve(certPKCS12File),             //格式是文件名
@@ -49,6 +51,7 @@ var certificate = {
 var config = {
   app: app,
   merchant: merchant,
+  // 可选（除了退款外接口，可以不用添加）
   certificate: certificate
 };
 
@@ -85,60 +88,60 @@ var config = nodeWeixinPay.prepay(app, merchant, id);
 ```
 
 
-> 具体的API请求部分
+### 基础API
 
-4、发送统一支付请求
+1、发送统一支付请求
 
 ```js
 nodeWeixinPay.api.order.unified(config, params, function(error, data) {
 });
 ```
 
-5、发送订单查询请求
+2、发送订单查询请求
 
 ```js
 var config = nodeWeixinPay.api.query(config, params, function(error, data) {
 });
 ```
 
-6、发送订单关闭请求
+3、发送订单关闭请求
 
 ```js
 var config = nodeWeixinPay.api.close(config, params, function(error, data) {
 });
 ```
 
-7、发送创建退款请求
+4、发送创建退款请求
 
 ```js
 var config = nodeWeixinPay.refund.create(config, params, function(error, data) {
 });
 ```
 
-8、发送退款查询请求
+5、发送退款查询请求
 
 ```js
 var config = nodeWeixinPay.refund.query(config, params, function(error, data) {
 });
 ```
 
-9、发送下载对账单请求
+6、发送下载对账单请求
 
 ```js
 var config = nodeWeixinPay.statements(config, params, function(error, data) {
 });
 ```
 
-10、发送测速报告请求
+7、发送测速报告请求
 
 ```js
 var config = nodeWeixinPay.report(config, params, function(error, data) {
 });
 ```
 
-> 处理微信回调
+### 处理微信回调接口API
 
-10、外理回调数据
+1、外理回调数据
 
 ```js
 //req.rawBody should be enabled
@@ -151,6 +154,8 @@ var res = {
 nodeWeixinPay.callback.notify(app, merchant, req, res, function(error, data) {
 });
 ```
+
+### 处理微信红包接口
 
 ## License
 
