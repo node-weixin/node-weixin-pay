@@ -33,7 +33,7 @@ var app = {
   token: process.env.APP_TOKEN || 'apptoken'
 };
 
-// 证书是可选的，只有需要退款时才需要
+// 证书是可选的，但在退款，红包，企业支付时需要
 
 var certificate = {
   pkcs12: path.resolve(certPKCS12File),             //格式是文件名
@@ -87,6 +87,21 @@ var id = 'id';
 var config = nodeWeixinPay.prepay(app, merchant, id);
 ```
 
+### 处理微信回调接口API
+
+1、处理回调数据，所有的请求的处理结果回调
+
+```js
+//req.rawBody should be enabled
+var req = {rawBody: xml};
+var res = {
+  json: function() {
+
+  }
+};
+nodeWeixinPay.callback.notify(app, merchant, req, res, function(error, data) {
+});
+```
 
 ### 基础API
 
@@ -139,23 +154,44 @@ var config = nodeWeixinPay.report(config, params, function(error, data) {
 });
 ```
 
-### 处理微信回调接口API
+### 微信红包接口
 
-1、外理回调数据
+1、发起普通微信红包
 
 ```js
-//req.rawBody should be enabled
-var req = {rawBody: xml};
-var res = {
-  json: function() {
+var config = nodeWeixinPay.redenvelope.create(config, params, function(error, data) {
+});
+```
+2、发起裂变微信红包
 
-  }
-};
-nodeWeixinPay.callback.notify(app, merchant, req, res, function(error, data) {
+```js
+var config = nodeWeixinPay.redenvelope.distribute(config, params, function(error, data) {
+});
+```
+3、发起红包查询
+
+```js
+var config = nodeWeixinPay.redenvelope.query(config, params, function(error, data) {
 });
 ```
 
-### 处理微信红包接口
+### 企业付款接口
+
+1、发起企业支付
+
+```js
+var config = nodeWeixinPay.enterprise.create(config, params, function(error, data) {
+});
+```
+
+2、查询企业支付
+
+```js
+var config = nodeWeixinPay.enterprise.query(config, params, function(error, data) {
+});
+
+
+
 
 ## License
 
