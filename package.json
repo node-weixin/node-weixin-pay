@@ -16,19 +16,19 @@
     ""
   ],
   "devDependencies": {
-    "eslint-config-xo-space": "^0.16.0",
+    "eslint-config-xo-space": "^0.7.0",
     "express": "^4.13.4",
     "gulp": "^3.9.0",
     "gulp-coveralls": "^0.1.0",
-    "gulp-eslint": "^3.0.1",
+    "gulp-eslint": "^1.0.0",
     "gulp-exclude-gitignore": "^1.0.0",
-    "gulp-istanbul": "^1.1.1",
-    "gulp-mocha": "^4.3.0",
+    "gulp-istanbul": "^0.10.3",
+    "gulp-mocha": "^2.0.0",
     "gulp-nsp": "^2.1.0",
     "gulp-plumber": "^1.0.0",
-    "nock": "^9.0.13",
-    "node-weixin-config": "^0.3.0",
-    "supertest": "^3.0.0",
+    "nock": "^7.2.2",
+    "node-weixin-config": "^0.2.0",
+    "supertest": "^1.2.0",
     "validator": "^7.0.0"
   },
   "eslintConfig": {

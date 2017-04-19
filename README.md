@@ -1,13 +1,13 @@
 # node-weixin-pay [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-image]][daviddm-url] [![Coverage percentage][coveralls-image]][coveralls-url]
 
-> Weixin Pay functions for node
+> Weixin 支付 API
 
 支持QQ群：39287176
 
 ## Install
 
 ```sh
-$ npm install --save node-weixin-pay
+$ npm install --save-exact node-weixin-pay
 ```
 
 ## Usage
@@ -189,7 +189,7 @@ var config = nodeWeixinPay.enterprise.create(config, params, function(error, dat
 ```js
 var config = nodeWeixinPay.enterprise.query(config, params, function(error, data) {
 });
-
+```
 
 
 
