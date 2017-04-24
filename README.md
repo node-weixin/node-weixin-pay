@@ -129,28 +129,28 @@ var config = nodeWeixinPay.api.close(config, params, function(error, data) {
 4、发送创建退款请求
 
 ```js
-var config = nodeWeixinPay.refund.create(config, params, function(error, data) {
+var config = nodeWeixinPay.api.refund.create(config, params, function(error, data) {
 });
 ```
 
 5、发送退款查询请求
 
 ```js
-var config = nodeWeixinPay.refund.query(config, params, function(error, data) {
+var config = nodeWeixinPay.api.refund.query(config, params, function(error, data) {
 });
 ```
 
 6、发送下载对账单请求
 
 ```js
-var config = nodeWeixinPay.statements(config, params, function(error, data) {
+var config = nodeWeixinPay.api.statements(config, params, function(error, data) {
 });
 ```
 
 7、发送测速报告请求
 
 ```js
-var config = nodeWeixinPay.report(config, params, function(error, data) {
+var config = nodeWeixinPay.api.report(config, params, function(error, data) {
 });
 ```
 
@@ -159,19 +159,19 @@ var config = nodeWeixinPay.report(config, params, function(error, data) {
 1、发起普通微信红包
 
 ```js
-var config = nodeWeixinPay.redenvelope.create(config, params, function(error, data) {
+var config = nodeWeixinPay.api.redenvelope.create(config, params, function(error, data) {
 });
 ```
 2、发起裂变微信红包
 
 ```js
-var config = nodeWeixinPay.redenvelope.distribute(config, params, function(error, data) {
+var config = nodeWeixinPay.api.redenvelope.distribute(config, params, function(error, data) {
 });
 ```
 3、发起红包查询
 
 ```js
-var config = nodeWeixinPay.redenvelope.query(config, params, function(error, data) {
+var config = nodeWeixinPay.api.redenvelope.query(config, params, function(error, data) {
 });
 ```
 
@@ -180,14 +180,14 @@ var config = nodeWeixinPay.redenvelope.query(config, params, function(error, dat
 1、发起企业支付
 
 ```js
-var config = nodeWeixinPay.enterprise.create(config, params, function(error, data) {
+var config = nodeWeixinPay.api.enterprise.create(config, params, function(error, data) {
 });
 ```
 
 2、查询企业支付
 
 ```js
-var config = nodeWeixinPay.enterprise.query(config, params, function(error, data) {
+var config = nodeWeixinPay.api.enterprise.query(config, params, function(error, data) {
 });
 ```
 
