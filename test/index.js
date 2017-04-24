@@ -99,6 +99,13 @@ describe('node-weixin-pay index', function () {
       }, error);
       assert.equal(true, result);
     });
+
+    it('should be true if wxappid present', function () {
+      var result = nodeWeixinPay.validate(app, merchant, {
+        wxappid: 'sdfsdf'
+      });
+      assert.equal(true, result);
+    });
   });
 
   describe('#qrcode', function () {
