@@ -83,8 +83,8 @@ var sign = nodeWeixinPay.sign(merchant, params);
 3、准备一个支付配置
 
 ```js
-var id = 'id';
-var config = nodeWeixinPay.prepay(app, merchant, id);
+var prepayId = 'prepayId';
+var config = nodeWeixinPay.prepay(app, merchant, prepayId);
 ```
 
 ### 处理微信回调接口API
